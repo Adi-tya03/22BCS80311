@@ -1,0 +1,28 @@
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
+
+mongoose.connect('mongodb://localhost/crisisDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
+const incidentSchema = new Schema({
+    title: String,
+    description: String,
+    status: { type: String, default: 'Pending' },
+    location: String,
+    severity: Number
+});
+
+const Incident = mongoose.model('Incident', incidentSchema);
+
+// Create a new incident
+const createIncident = async () => {
+    const newIncident = new Incident({
+        title: 'Fire in building',
+        description: 'Massive fire in the downtown building.',
+        location: 'Downtown Area',
+        severity: 9
+    });
+    await newIncident.save();
+    console.log('Incident Created:', newIncident);
+};
+
+createIncident();
