@@ -1,0 +1,26 @@
+const webpush = require('web-push');
+
+// VAPID keys for push notifications
+const vapidKeys = webpush.generateVAPIDKeys();
+console.log('VAPID Public Key:', vapidKeys.publicKey);
+console.log('VAPID Private Key:', vapidKeys.privateKey);
+
+// Send push notification (simplified)
+const sendPushNotification = (subscription) => {
+    const payload = JSON.stringify({ title: 'Emergency Alert', message: 'Stay alert, evacuation needed.' });
+
+    webpush.sendNotification(subscription, payload)
+        .then(response => console.log('Push notification sent:', response))
+        .catch(err => console.error('Error sending notification:', err));
+};
+
+// Example subscription object (real subscription object needed in production)
+const exampleSubscription = {
+    endpoint: 'https://example.com',
+    keys: {
+        p256dh: 'sample-key',
+        auth: 'sample-auth-key'
+    }
+};
+
+sendPushNotification(exampleSubscription);
