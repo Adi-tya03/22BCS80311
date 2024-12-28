@@ -1,0 +1,12 @@
+// Example of AI-based prioritization (using a basic decision-making approach)
+const tasks = [
+    { id: 1, description: 'Evacuate affected areas', severity: 10 },
+    { id: 2, description: 'Set up emergency shelters', severity: 8 },
+    { id: 3, description: 'Send medical supplies', severity: 6 }
+];
+
+function prioritizeTasks(tasks) {
+    return tasks.sort((a, b) => b.severity - a.severity);
+}
+
+console.log('Prioritized Tasks:', prioritizeTasks(tasks));
