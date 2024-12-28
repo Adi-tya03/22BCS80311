@@ -1,0 +1,25 @@
+const crypto = require('crypto');
+
+// Secret key for encryption
+const secretKey = 'your-secret-key';
+
+function encrypt(text) {
+    const cipher = crypto.createCipher('aes-256-ctr', secretKey);
+    let encrypted = cipher.update(text, 'utf8', 'hex');
+    encrypted += cipher.final('hex');
+    return encrypted;
+}
+
+function decrypt(text) {
+    const decipher = crypto.createDecipher('aes-256-ctr', secretKey);
+    let decrypted = decipher.update(text, 'hex', 'utf8');
+    decrypted += decipher.final('utf8');
+    return decrypted;
+}
+
+// Example usage
+const message = 'This is a secret message';
+const encryptedMessage = encrypt(message);
+console.log('Encrypted:', encryptedMessage);
+const decryptedMessage = decrypt(encryptedMessage);
+console.log('Decrypted:', decryptedMessage);
